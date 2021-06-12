@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const knex = require('knex');
-const { response } = require('express');
 
 const db = knex({
 	client: 'pg',
@@ -19,6 +18,10 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
+	res.send('success')
+})
+
+app.get('/getmessages', (req, res) => {
 	db.select('*').from('messages')
 		.orderBy('id')
 		.then(messages => {
