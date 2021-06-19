@@ -42,7 +42,6 @@ app.post('/postmessage', (req, res) => {
 				date: new Date(),
 				edited: null
 			})
-			.orderBy('id', 'desc')
 			.then(message => {
 				res.json(message[0]);
 			})
