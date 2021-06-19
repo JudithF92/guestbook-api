@@ -41,7 +41,7 @@ app.post('/postmessage', (req, res) => {
 				date: new Date(),
 				edited: null
 		})
-		.orderBy('id')
+		.orderBy('id', 'desc')
 		.then(message => {
 			res.json(message[0]);
 		})
@@ -89,7 +89,8 @@ app.listen(process.env.PORT || 3001, () => {
 	console.log(`app is running on port ${process.env.PORT}`);
 })
 
-// / --> res = messages
+// / --> res = 'success'
+// /getmessages --> GET = messages
 // /postmessage --> POST = message
 // /changemessage --> PUT = messages
 // /deletemessage --> DELETE = messages

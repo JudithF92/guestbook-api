@@ -1,0 +1,7 @@
+messages (
+	id serial PRIMARY KEY,
+	name text NOT NULL,
+	text text NOT NULL,
+	date timestamp without time zone,
+	edited timestamp without time zone
+);
