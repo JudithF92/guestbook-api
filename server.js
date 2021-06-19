@@ -22,7 +22,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/getmessages', (req, res) => {
-	db.select('*').from('messages')
+	db.select('id', 'name', 'text', 'date', 'edited')
+		.from('messages')
 		.orderBy('id', 'desc')
 		.then(messages => {
 			res.json(messages);
@@ -34,18 +35,18 @@ app.post('/postmessage', (req, res) => {
 	if (req.body.name !== '' && req.body.text !== ''){
 		const { name, text } = req.body;
 		db('messages')
-			.returning('*')
+			.returning(['id', 'name', 'text', 'date', 'edited'])
 			.insert({
 				name: name,
 				text: text,
 				date: new Date(),
 				edited: null
-		})
-		.orderBy('id', 'desc')
-		.then(message => {
-			res.json(message[0]);
-		})
-		.catch(err => res.status(400).json('unable to store message'))
+			})
+			.orderBy('id', 'desc')
+			.then(message => {
+				res.json(message[0]);
+			})
+			.catch(err => res.status(400).json('unable to store message'))
 	} else {
 		res.status(400).json('invalid input');
 	}	
@@ -60,7 +61,8 @@ app.put('/changemessage', (req, res) => {
 				edited: new Date()
 			 })
 			.then(() => {
-				db.select('*').from('messages')
+				db.select('id', 'name', 'text', 'date', 'edited')
+					.from('messages')
 					.orderBy('id', 'desc')
 					.then(messages => {
 						res.json(messages);
@@ -76,7 +78,8 @@ app.delete('/deletemessage', (req, res) => {
 		.where({id})
 		.del()
 		.then(() => {
-			db.select('*').from('messages')
+			db.select('id', 'name', 'text', 'date', 'edited')
+				.from('messages')
 				.orderBy('id', 'desc')
 				.then(messages => {
 					res.json(messages);
