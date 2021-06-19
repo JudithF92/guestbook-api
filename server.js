@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 app.get('/getmessages', (req, res) => {
 	db.select('*').from('messages')
-		.orderBy('id')
+		.orderBy('id', 'desc')
 		.then(messages => {
 			res.json(messages);
 		})
@@ -61,7 +61,7 @@ app.put('/changemessage', (req, res) => {
 			 })
 			.then(() => {
 				db.select('*').from('messages')
-					.orderBy('id')
+					.orderBy('id', 'desc')
 					.then(messages => {
 						res.json(messages);
 					})
@@ -77,7 +77,7 @@ app.delete('/deletemessage', (req, res) => {
 		.del()
 		.then(() => {
 			db.select('*').from('messages')
-				.orderBy('id')
+				.orderBy('id', 'desc')
 				.then(messages => {
 					res.json(messages);
 				})
