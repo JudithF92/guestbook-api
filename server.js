@@ -7,10 +7,10 @@ const dbFunctions = require('./db-functions');
 const db = knex({
 	client: 'pg',
 	connection: {
-		host: '127.0.0.1',
-		user: 'postgres',
-		password: 'hashi',
-		database: 'guestbookDB'
+		connectionString : process.env.DATABASE_URL,
+		ssl: {
+			rejectUnauthorized: false
+		  }
 	}
 });
 
